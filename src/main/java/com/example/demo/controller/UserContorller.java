@@ -21,28 +21,25 @@ public class UserContorller {
     @Autowired
     private RegisterBiz registerBiz;
 
-    @Autowired
-    RegisterDao registerDao;
-    @RequestMapping("/122")
-    public String s(){
-        return "122";
-    }
-
     @RequestMapping("/111")
-    public String ss(){
+    public String ss() {
         return "111";
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody User user){
-//        String user = httpServletRequest.getParameter("user");
-//        User user1 = JSON.parseObject(user, User.class);
-//        int i = registerBiz.registerUser(user1);
-//        registerBiz.f(user);
-//        registerDao.insert(new Date(1550981645050L));
-//        registerDao.createUserTable("a1");
+    public String register(@RequestBody User user) {
         registerBiz.registerUser(user);
-        return new Date()+" 注册成功";
-
+        return new Date() + " 注册成功";
     }
+
+    @PostMapping("/id")
+    public String modify(@RequestBody Map<String,String> map) {
+        User user = registerBiz.selectById(map.get("id"));
+        if (user != null) {
+            return new Date() + "查找成功"+JSON.toJSONString(user);
+        }else{
+            return "查找失败";
+        }
+    }
+
 }

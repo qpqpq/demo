@@ -27,11 +27,8 @@ public interface RegisterDao {
 //    @Insert("create table #{id}(id varchar(64))")
     int insertUser(User user);
 
-    @Update("create table ${name} (id datetime)")
-    void createUserTable(@Param("name") String name);
+    User selectById(String id);
 
-    @Insert("insert into a1 values(#{date})")
-    void insert(Date date);
 
 }
 

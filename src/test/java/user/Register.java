@@ -1,4 +1,4 @@
-package register;
+package user;
 
 import org.json.JSONException;
 import org.json.JSONObject;

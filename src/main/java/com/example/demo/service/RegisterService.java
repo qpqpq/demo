@@ -15,11 +15,11 @@ public class RegisterService {
     @Autowired
     private RegisterDao registerDao;
 
-    public int registerUser(User user){
+    public int insertUser(User user){
         return registerDao.insertUser(user);
     }
 
-    public void createTable(String name){
-        registerDao.createUserTable(name);
+    public User selectUserById(String id){
+        return registerDao.selectById(id);
     }
 }

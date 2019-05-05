@@ -19,15 +19,19 @@ public class RegisterBiz {
     @Autowired
     private RegisterService registerService;
 
-    public int registerUser(User user){
+    public int registerUser(User user) {
         user.setId(UUID.getUUID());
         user.setName(user.getName());
         user.setPassword(SHA256.getSHA(user.getPassword()));
-        return registerService.registerUser(user);
+        return registerService.insertUser(user);
     }
 
-    public void f(String name){
-        registerService.createTable(name);
-    }
 
+    public User selectById(String id) {
+        try {
+            return registerService.selectUserById(id);
+        }catch (Exception e){
+            return null;
+        }
+    }
 }

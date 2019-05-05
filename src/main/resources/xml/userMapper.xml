@@ -16,7 +16,7 @@
     <!--private String xiyan;-->
     <!--private String yinjiu;-->
     <!--private String yinshi;-->
-    <resultMap id="User" type="com.example.demo.bo.User">
+    <resultMap id="BaseResultMap" type="com.example.demo.bo.User">
         <result column="id" property="id" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
@@ -33,6 +33,9 @@
         <!--<result column="yinjiu" property="yinjiu" jdbcType="varchar"/>-->
         <!--<result column="yinshi" property="yinshi" jdbcType="varchar"/>-->
     </resultMap>
+    <sql id="Base_Column_List">
+        id,name,password
+    </sql>
     <!--&#45;&#45;         #{id},#{picture},#{name},#{password},#{birthday},#{idcard},#{family},#{postcode},#{phone},-->
     <!--&#45;&#45;         #{state},#{height},#{weight},#{xiyan},#{yinjiu},#{yinshi}-->
     <insert id="insertUser" parameterType="com.example.demo.bo.User">
@@ -40,15 +43,12 @@
           #{id},#{name},#{password}
         )
     </insert>
-    <!--<sql id="createUserTable3">-->
-        <!--create table bishe.xueya3(id int,name varchar(64))-->
-    <!--</sql>-->
-    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">-->
-        <!--select-->
-        <!--<include refid="Base_Column_List"/>-->
-        <!--from user_t-->
-        <!--where id = #{id,jdbcType=INTEGER}-->
-    <!--</select>-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
     <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
         <!--delete from user_t-->
         <!--where id = #{id,jdbcType=INTEGER}-->
