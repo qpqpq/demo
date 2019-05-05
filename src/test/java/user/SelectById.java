@@ -23,8 +23,8 @@ public class SelectById{
             httpURLConnection.setConnectTimeout(3000);
             httpURLConnection.setReadTimeout(3000);
             httpURLConnection.addRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
-            httpURLConnection.setRequestMethod("POST");
             httpURLConnection.addRequestProperty("Content-Type", "application/json");
+            httpURLConnection.connect();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("id","d64ac87f652d4c1690fa42004d64c1bd" );

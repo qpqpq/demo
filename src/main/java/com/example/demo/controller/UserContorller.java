@@ -21,11 +21,6 @@ public class UserContorller {
     @Autowired
     private RegisterBiz registerBiz;
 
-    @RequestMapping("/111")
-    public String ss() {
-        return "111";
-    }
-
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         registerBiz.registerUser(user);
