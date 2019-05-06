@@ -9,6 +9,11 @@ import java.security.NoSuchAlgorithmException;
  * @date 2019/5/5 下午12:17
  */
 public class SHA256 {
+    public static void main(String[] args) {
+        String qwe = SHA256.getSHA("qwe");
+        System.out.println(qwe+"  "+qwe.length());
+    }
+
     public static final String getSHA(String str) {
         /**
          *     * 利用java原生的类实现SHA256加密

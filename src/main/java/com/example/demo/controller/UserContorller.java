@@ -20,7 +20,27 @@ public class UserContorller {
 
     @Autowired
     private RegisterBiz registerBiz;
-
+    //token:phone+sha256(phone+password)
+    //                 用户信息 功能   url                         param             返回格式
+    //                         注册   /user/register              User
+    // ]                       请求   /user/info                                    User
+    //                         更新   /user/info/update           User
+    //                 血压
+    //                         保存   /pressure/save              Pressure
+    //                         获取   /pressure/get               {timeType:012}    {high:[{num,time},{},{}...],low:[{},{},{}...]}
+    //                 血糖
+    //                         保存   /sugar/save                 Sugar
+    //                         获取   /sugar/get                  {timeType:012}    [{num,time},{num,time}...]
+    //                 体重
+    //                         保存   /weight/save                Weight            {BMI:xxx}
+    //                         获取   /weight/get                 {timeType:012}    [{num,time},{}...]
+    //                 锻炼
+    //                         保存   /exercise/save              Exercise
+    //                         获取   /exercise/get               {timeType:012}    [{type:ctime},{}...]
+    //                 用药
+    //                         保存   /yao/save                   Yao
+    //                         获取   /yao/get                                      [{Yao},{}...]
+    //
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         registerBiz.registerUser(user);

@@ -5,32 +5,25 @@ package com.example.demo.bo;
  * @date 2019/2/23 下午3:47
  */
 public class User {
-    private String id;
-    private String name;
-    private String password;
-//    private String birthday;
+    private String name;//姓名
+    private String password;//注册
+    private String sex;//0 男/1 女
+    private String birthday;//20190101
+    private String idcard;//18
+    private String postcode;//130012
+    private String phone;//11    注册
+    private String health;//0 健康/1 高血压/2 糖尿病
+    private String height;//cm
+    private String weight;//kg
+    private String xiyan;
+    private String yinjiu;
+//    private String yinshi;//0123456。。。
 //    private String picture;
-//    private String idcard;
 //    private String family;
-//    private String postcode;
-//    private String phone;
 //    private String state;
-//    private String height;
-//    private String weight;
-//    private String xiyan;
-//    private String yinjiu;
-//    private String yinshi;
 
     public User() {
 
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {

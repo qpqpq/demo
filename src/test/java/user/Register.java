@@ -21,6 +21,7 @@ public class Register {
         httpURLConnection.setDoOutput(true);
         httpURLConnection.setDoInput(true);
         httpURLConnection.setConnectTimeout(3000);
+        httpURLConnection.setRequestProperty("token","13100001111ef23" );
         httpURLConnection.setReadTimeout(3000);
         httpURLConnection.addRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
         httpURLConnection.addRequestProperty("Content-Type", "application/json");

@@ -20,7 +20,7 @@ public class RegisterBiz {
     private RegisterService registerService;
 
     public int registerUser(User user) {
-        user.setId(UUID.getUUID());
+//        user.setId(UUID.getUUID());
         user.setName(user.getName());
         user.setPassword(SHA256.getSHA(user.getPassword()));
         return registerService.insertUser(user);
