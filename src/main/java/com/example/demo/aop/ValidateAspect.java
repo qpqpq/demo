@@ -40,6 +40,7 @@ public class ValidateAspect {
                 return "{\"msg\":\"token错误\"}";
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return "{}";
         }
     }

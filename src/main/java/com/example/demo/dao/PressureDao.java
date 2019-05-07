@@ -16,6 +16,6 @@ public interface PressureDao {
 
     int insertPressure(Pressure pressure);
 
-    List<Pressure> selectById(String id);
+    List<Pressure> selectById(String phone);
 
 }

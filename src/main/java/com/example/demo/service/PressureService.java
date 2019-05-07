@@ -5,6 +5,8 @@ import com.example.demo.dao.PressureDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author pangkun
  * @date 2019/5/7 下午2:24
@@ -17,5 +19,8 @@ public class PressureService {
 
     public void insertPressure(Pressure pressure){
         pressureDao.insertPressure(pressure);
+    }
+    public List<Pressure> selectById(String phone){
+        return pressureDao.selectById(phone);
     }
 }

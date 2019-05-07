@@ -12,7 +12,7 @@ import java.net.URLConnection;
  * @author pangkun
  * @date 2019/5/5 下午2:36
  */
-public class Pressure {
+public class Save {
     public static void main(String[] args) throws IOException, JSONException {
         URLConnection urlConnection = new URL("http://127.0.0.1:8080/pressure/save").openConnection();
         HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
@@ -28,6 +28,11 @@ public class Pressure {
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("phone", "12345678901");
+        jsonObject.put("high", String.valueOf((int) (Math.random() * 200)));
+        jsonObject.put("low", String.valueOf((int) (Math.random() * 200)));
+        jsonObject.put("high", String.valueOf((int) (Math.random() * 200)));
+        jsonObject.put("maibo", String.valueOf((int) (Math.random() * 200)));
+        jsonObject.put("time", String.valueOf(System.currentTimeMillis()));
         bufferedWriter.write(jsonObject.toString());
         bufferedWriter.flush();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
