@@ -77,3 +77,10 @@ low varchar(4),
 maibo varchar(4),
 time varchar(16)
 );
+
+create table bishe.sugar(
+phone varchar(11),
+time varchar(8),
+qujian varchar(4),
+num varchar(8)
+);
