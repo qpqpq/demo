@@ -26,22 +26,3 @@ public interface UserDao {
 
 
 }
-
-//{
-//        "id": "setId",
-//        "picture": "setPicture",
-//        "name": "setName",
-//        "password": "setPassword",
-//        "birthday": "setBirthday",
-//        "idcard": "setIdcard",
-//        "family": "setFamily",
-//        "postcode": "setPostcode",
-//        "phone": "setPhone",
-//        "state": "setState",
-//        "height": "setHeight",
-//        "weight": "setWeight",
-//        "xiyan": "setXiyan",
-//        "yinshi": "setYinshi",
-//        "yinjiu": "setYinjiu"
-//        }
-//localhost:8080/register?user={"birthday":"setBirthday","family":"setFamily","height":"setHeight","id":"setId","idcard":"setIdcard","name":"setName","password":"setPassword","phone":"setPhone","picture":"setPicture","postcode":"setPostcode","state":"setState","weight":"setWeight","xiyan":"setXiyan","yinshi":"setYinshi","yinjiu":"setYinjiu"}

@@ -66,7 +66,7 @@ public class UserContorller {
     }
 
     @Validator
-    @PostMapping("/update")
+    @PostMapping("/info/update")
     public String update(@RequestHeader Map<String, String> header,@RequestBody User user) {
         try {
             System.out.println(JSON.toJSONString(user));
