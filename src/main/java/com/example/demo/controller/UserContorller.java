@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.biz.RegisterBiz;
+import com.example.demo.annotation.Validator;
+import com.example.demo.biz.UserBiz;
 import com.example.demo.bo.User;
-import com.example.demo.dao.RegisterDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,8 @@ import java.util.Map;
 public class UserContorller {
 
     @Autowired
-    private RegisterBiz registerBiz;
+    private UserBiz userBiz;
+
     //token:phone+sha256(phone+password)
     //                 用户信息 功能   url                         param             返回格式
     //                         注册   /user/register              User
@@ -43,17 +44,36 @@ public class UserContorller {
     //
     @PostMapping("/register")
     public String register(@RequestBody User user) {
-        registerBiz.registerUser(user);
-        return new Date() + " 注册成功";
+        try {
+            System.out.println(JSON.toJSONString(user));
+            userBiz.registerUser(user);
+            return new Date() + " 注册成功";
+        }catch (Exception e){
+            return "{}";
+        }
     }
 
-    @PostMapping("/id")
-    public String modify(@RequestBody Map<String,String> map) {
-        User user = registerBiz.selectById(map.get("id"));
-        if (user != null) {
-            return new Date() + "查找成功"+JSON.toJSONString(user);
+    @Validator
+    @PostMapping("/info")
+    public String login(@RequestHeader Map<String, String> header) {
+        User user = userBiz.selectById(header.get("token").substring(0, 11));
+        if(user!=null){
+            user.setPassword("");
+            return JSON.toJSONString(user);
         }else{
-            return "查找失败";
+            return "{}";
+        }
+    }
+
+    @Validator
+    @PostMapping("/update")
+    public String update(@RequestHeader Map<String, String> header,@RequestBody User user) {
+        try {
+            System.out.println(JSON.toJSONString(user));
+            userBiz.updateUser(user);
+            return new Date() + " 修改成功";
+        }catch (Exception e){
+            return "{}";
         }
     }
 

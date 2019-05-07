@@ -11,10 +11,4 @@ public class Pressure {
     private String low;
     private String maibo;
     private String time;//timestamp
-
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis());
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        System.out.println(timestamp);
-    }
 }

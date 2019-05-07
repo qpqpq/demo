@@ -15,19 +15,14 @@ import java.util.Date;
  */
 @Mapper
 @Repository("registerDao")
-public interface RegisterDao {
+public interface UserDao {
 
 
-    /**
-     * @param user
-     * @return
-     */
-//    @Insert("insert into user values(#{id},#{picture},#{name},#{password},#{birthday},#{idcard},#{family},#{postcode},#{phone}," +
-//            "#{state},#{height},#{weight},#{xiyan},#{yinjiu},#{yinshi});")
-//    @Insert("create table #{id}(id varchar(64))")
     int insertUser(User user);
 
     User selectById(String id);
+
+    void updateUser(User user);
 
 
 }

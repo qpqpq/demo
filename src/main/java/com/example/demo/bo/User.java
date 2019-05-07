@@ -17,10 +17,6 @@ public class User {
     private String weight;//kg
     private String xiyan;
     private String yinjiu;
-//    private String yinshi;//0123456。。。
-//    private String picture;
-//    private String family;
-//    private String state;
 
     public User() {
 
@@ -40,5 +36,85 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public void setHealth(String health) {
+        this.health = health;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getXiyan() {
+        return xiyan;
+    }
+
+    public void setXiyan(String xiyan) {
+        this.xiyan = xiyan;
+    }
+
+    public String getYinjiu() {
+        return yinjiu;
+    }
+
+    public void setYinjiu(String yinjiu) {
+        this.yinjiu = yinjiu;
     }
 }
