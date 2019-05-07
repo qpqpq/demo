@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
-import com.example.demo.biz.SugarBiz;
 import com.example.demo.biz.WeightBiz;
-import com.example.demo.bo.Sugar;
+import com.example.demo.bo.User;
 import com.example.demo.bo.Weight;
+import com.example.demo.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +26,22 @@ public class WeightController {
     @Autowired
     private WeightBiz weightBiz;
 
+    @Autowired
+    private UserDao userDao;
+
     @Validator
     @PostMapping("/save")
-    public String save(@RequestHeader Map<String,String>header, @RequestBody Weight weight){
+    public String save(@RequestHeader Map<String, String> header, @RequestBody Weight weight) {
         try {
             System.out.println(JSON.toJSONString(weight));
             weightBiz.saveWeight(weight);
+            User user = userDao.selectById(header.get("token").substring(0, 11));
+            String height = user.getHeight();
+            if (height != null) {
+                Double num = Double.valueOf(weight.getNum());
+                double v = num / Double.valueOf(height) / Double.valueOf(height)*10000;
+                return "{\"bmi\":" + v + "}";
+            }
             return new Date() + " 上传成功";
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,14 +51,14 @@ public class WeightController {
 
     @Validator
     @PostMapping("/get")
-    public String get(@RequestHeader Map<String,String>header, @RequestBody Map<String,String> map){
+    public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         String timeType = map.get("timeType");
-        List<Sugar> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+        List<Weight> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
         JSONArray jsonArray = new JSONArray();
-        for (Sugar sugar : list) {
-            JSONObject h = new JSONObject();
-            h.put(sugar.getNum(), sugar.getTime());
-            jsonArray.add(h);
+        for (Weight weight : list) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(weight.getNum(), weight.getTime());
+            jsonArray.add(jsonObject);
         }
         return jsonArray.toString();
     }

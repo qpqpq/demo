@@ -26,8 +26,58 @@ public class WeightBiz {
         weightService.insertWeight(weight);
     }
 
-    public List<Sugar> selectByCondition(String phone, String type) {
+    public List<Weight> selectByCondition(String phone, String type) {
         List<Weight> weights = weightService.selectById(phone);
-        return null;
+        weights.sort(new Comparator<Weight>() {
+            @Override
+            public int compare(Weight o1, Weight o2) {
+                return Long.valueOf(o1.getTime()).compareTo(Long.valueOf(o2.getTime()));
+            }
+        });
+        long l = System.currentTimeMillis();
+        List<Weight> list = new ArrayList<>();
+        for (Weight weight : weights) {
+            list.add(weight);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(new Date(Long.valueOf(System.currentTimeMillis())));
+        System.out.println(format);
+        switch (type) {
+            case "0":
+                for (Weight weight : list) {
+                    if (Long.valueOf(date2TimeStamp(weight.getTime() + " 00:00:00", "yyyyMMdd HH:mm:ss")) < l - 1000L * 60 * 60 * 24 * 30) {
+                        weights.remove(weight);
+                    }
+                }
+                break;
+            case "1":
+                for (Weight weight : list) {
+                    if (Long.valueOf(date2TimeStamp(weight.getTime() + " 00:00:00", "yyyyMMdd HH:mm:ss")) < l - 1000L * 60 * 60 * 24 * 30 * 3) {
+                        weights.remove(weight);
+                    }
+                }
+                break;
+            case "2":
+                for (Weight weight : list) {
+                    if (Long.valueOf(date2TimeStamp(weight.getTime() + " 00:00:00", "yyyyMMdd HH:mm:ss")) < l - 1000L * 60 * 60 * 24 * 30 * 12) {
+                        weights.remove(weight);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        return weights;
+    }
+
+
+    public String date2TimeStamp(String date_str, String format) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return String.valueOf(sdf.parse(date_str).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

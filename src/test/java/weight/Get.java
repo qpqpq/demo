@@ -12,9 +12,9 @@ import java.net.URLConnection;
  * @author pangkun
  * @date 2019/5/7 下午10:40
  */
-public class Save {
+public class Get {
     public static void main(String[] args) throws IOException, JSONException {
-        URLConnection urlConnection = new URL("http://127.0.0.1:8080/weight/save").openConnection();
+        URLConnection urlConnection = new URL("http://127.0.0.1:8080/weight/get").openConnection();
         HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
         httpURLConnection.setDoOutput(true);
         httpURLConnection.setDoInput(true);
@@ -27,9 +27,7 @@ public class Save {
         httpURLConnection.connect();
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phone", "12345678901");
-        jsonObject.put("num", "212.8");
-        jsonObject.put("time", "20190202");
+        jsonObject.put("timeType", "2");
         bufferedWriter.write(jsonObject.toString());
         bufferedWriter.flush();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
