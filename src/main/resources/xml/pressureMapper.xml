@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.PressureDao">
+    <!--private String phone;-->
+    <!--private String high;-->
+    <!--private String low;-->
+    <!--private String maibo;-->
+    <!--private String time;//timestamp-->
+    <resultMap id="BaseResultMap" type="com.example.demo.bo.Pressure">
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="high" property="high" jdbcType="VARCHAR"/>
+        <result column="low" property="low" jdbcType="VARCHAR"/>
+        <result column="maibo" property="maibo" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        phone,high,low,maibo,time
+    </sql>
+    <insert id="insertPressure" parameterType="com.example.demo.bo.Pressure">
+        insert into pressure values(
+          #{phone},#{high},#{low},#{maibo},#{time}
+        )
+    </insert>
+
+
+
+</mapper>

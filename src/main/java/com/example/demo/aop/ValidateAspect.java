@@ -37,7 +37,7 @@ public class ValidateAspect {
                 Object result = point.proceed();
                 return result;
             } else {
-                return "{}";
+                return "{\"msg\":\"token错误\"}";
             }
         } catch (Exception e) {
             return "{}";

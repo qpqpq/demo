@@ -53,3 +53,27 @@ xinqing int,
 zhengzhuang varchar(64),
 date datetime
 );
+
+--------------------
+create table bishe.user(
+phone varchar(11)primary key,
+name varchar(64),
+password varchar(64),
+sex varchar(1),
+birthday varchar(8),
+idcard varchar(18),
+postcode varchar(8),
+health varchar(1),
+height varchar(8),
+weight varchar(8),
+xiyan varchar(8),
+yinjiu varchar(8)
+);
+
+create table bishe.pressure(
+phone varchar(11),
+high varchar(4),
+low varchar(4),
+maibo varchar(4),
+time varchar(16)
+);

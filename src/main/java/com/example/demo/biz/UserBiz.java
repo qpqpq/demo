@@ -19,16 +19,6 @@ public class UserBiz {
 
     public int registerUser(User user) {
         user.setPassword(SHA256.getSHA(user.getName()+user.getPassword()));
-        user.setBirthday("s");
-        user.setHealth("s");
-        user.setHeight("ds");
-        user.setIdcard("sd");
-        user.setPhone("sd");
-        user.setSex("s");
-        user.setYinjiu("s");
-        user.setXiyan("sd");
-        user.setPostcode("sd");
-        user.setWeight("sd");
         System.out.println(JSON.toJSONString(user));
         return userService.insertUser(user);
     }
