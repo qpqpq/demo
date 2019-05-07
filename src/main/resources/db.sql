@@ -84,3 +84,9 @@ time varchar(8),
 qujian varchar(4),
 num varchar(8)
 );
+
+create table bishe.weight(
+phone varchar(11),
+num varchar(8),
+time varchar(8)
+);

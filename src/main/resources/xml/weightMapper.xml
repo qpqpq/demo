@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.WeightDao">
+    <!--private String phone;-->
+    <!--private String num;-->
+    <!--private String time;//20190101-->
+    <resultMap id="BaseResultMap" type="com.example.demo.bo.Weight">
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        phone,num,time
+    </sql>
+    <insert id="insertWeight" parameterType="com.example.demo.bo.Weight">
+        insert into weight values(
+          #{phone},#{num},#{time}
+        )
+    </insert>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from weight
+        where phone = #{phone,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

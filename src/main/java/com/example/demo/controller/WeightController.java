@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.SugarBiz;
+import com.example.demo.biz.WeightBiz;
 import com.example.demo.bo.Sugar;
+import com.example.demo.bo.Weight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,18 +20,18 @@ import java.util.Map;
  * @date 2019/5/7 下午7:24
  */
 @RestController
-@RequestMapping("/sugar")
-public class SugarController {
+@RequestMapping("/weight")
+public class WeightController {
 
     @Autowired
-    private SugarBiz sugarBiz;
+    private WeightBiz weightBiz;
 
     @Validator
     @PostMapping("/save")
-    public String save(@RequestHeader Map<String,String>header, @RequestBody Sugar sugar){
+    public String save(@RequestHeader Map<String,String>header, @RequestBody Weight weight){
         try {
-            System.out.println(JSON.toJSONString(sugar));
-            sugarBiz.saveSugar(sugar);
+            System.out.println(JSON.toJSONString(weight));
+            weightBiz.saveWeight(weight);
             return new Date() + " 上传成功";
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +43,7 @@ public class SugarController {
     @PostMapping("/get")
     public String get(@RequestHeader Map<String,String>header, @RequestBody Map<String,String> map){
         String timeType = map.get("timeType");
-        List<Sugar> list = sugarBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+        List<Sugar> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
         JSONArray jsonArray = new JSONArray();
         for (Sugar sugar : list) {
             JSONObject h = new JSONObject();
