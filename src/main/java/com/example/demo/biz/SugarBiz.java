@@ -6,9 +6,8 @@ import com.example.demo.service.SugarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author pangkun
@@ -37,24 +36,27 @@ public class SugarBiz {
         for (Sugar sugar : sugars) {
             list.add(sugar);
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(new Date(Long.valueOf(System.currentTimeMillis())));
+        System.out.println(format);
         switch (type) {
             case "0":
                 for (Sugar sugar : list) {
-                    if (Long.valueOf(sugar.getTime()) < l - 1000L * 60 * 60 * 24 * 30) {
+                    if (Long.valueOf(date2TimeStamp(sugar.getTime() + " 00:00:00", "yyyyMMdd HH:mm:ss")) < l - 1000L * 60 * 60 * 24 * 30) {
                         sugars.remove(sugar);
                     }
                 }
                 break;
             case "1":
                 for (Sugar sugar : list) {
-                    if (Long.valueOf(sugar.getTime()) < l - 1000L * 60 * 60 * 24 * 30 * 3) {
+                    if (Long.valueOf(date2TimeStamp(sugar.getTime() + " 00:00:00", "yyyyMMdd HH:mm:ss")) < l - 1000L * 60 * 60 * 24 * 30 * 3) {
                         sugars.remove(sugar);
                     }
                 }
                 break;
             case "2":
                 for (Sugar sugar : list) {
-                    if (Long.valueOf(sugar.getTime()) < l - 1000L * 60 * 60 * 24 * 30 * 12) {
+                    if (Long.valueOf(date2TimeStamp(sugar.getTime() + " 00:00:00", "yyyyMMdd HH:mm:ss")) < l - 1000L * 60 * 60 * 24 * 30 * 12) {
                         sugars.remove(sugar);
                     }
                 }
@@ -62,27 +64,40 @@ public class SugarBiz {
             default:
                 break;
         }
-        String last=sugars.get(0).getTime();
-        int t=1;
-        Double sum= Double.valueOf(sugars.get(0).getNum());
-        List<Sugar>list1=new ArrayList<>();
-        for(int i=1;i<sugars.size();i++){
-            Sugar sugar = sugars.get(i);
-            if(sugar.getTime().equals(last)){
-                sum+=Double.valueOf(sugar.getNum());
-                t++;
-            }else{
-                Sugar sugar1=new Sugar();
-                sugar1.setTime(last);
-                sugar1.setNum(sum/t+"");
-                sugar1.setPhone(sugar.getPhone());
-                list1.add(sugar1);
-                t=1;
-                last=sugar.getTime();
-                sum=Double.valueOf(sugar.getNum());
+        List<Sugar> list1 = new ArrayList<>();
+        if (sugars.size() == 0) {
+            System.out.println("!!!!");
+            return list1;
+        }
+
+        Sugar sugar = new Sugar();
+        sugar.setPhone(sugars.get(0).getPhone());
+        sugar.setTime(sugars.get(0).getTime());
+        sugar.setNum(sugars.get(0).getNum());
+        int t = 1;
+        for (Sugar sugar1 : sugars) {
+            if (sugar1.getTime().equals(sugar.getTime())) {
+                sugar.setNum((Double.valueOf(sugar.getNum()) * t + Double.valueOf(sugar1.getNum())) / (++t) + "");
+            } else {
+                list1.add(sugar);
+                sugar.setNum(sugar1.getNum());
+                sugar.setTime(sugar1.getTime());
+                t = 1;
             }
         }
+        list1.add(sugar);
+        System.out.println(list1.size());
         return list1;
     }
 
+
+    public String date2TimeStamp(String date_str, String format) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return String.valueOf(sdf.parse(date_str).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }
