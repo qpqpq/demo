@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.ExerciseBiz;
 import com.example.demo.bo.Exercise;
@@ -45,6 +46,11 @@ public class ExerciseController {
         String timeType = map.get("timeType");
         List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
         JSONArray jsonArray = new JSONArray();
+        for(Exercise exercise:list){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put(exercise.getType(), exercise.getCtime());
+            jsonArray.add(jsonObject);
+        }
         return jsonArray.toString();
     }
 }
