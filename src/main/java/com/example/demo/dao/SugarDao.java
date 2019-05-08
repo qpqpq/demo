@@ -14,9 +14,6 @@ import java.util.List;
 @Mapper
 @Repository("sugarDao")
 public interface SugarDao {
-    //                 血糖
-    //                         保存   /sugar/save                 Sugar
-    //                         获取   /sugar/get                  {timeType:012}    [{num,time},{num,time}...]
 
     int insertSugar(Sugar sugar);
 

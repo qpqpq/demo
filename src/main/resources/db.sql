@@ -90,3 +90,11 @@ phone varchar(11),
 num varchar(8),
 time varchar(8)
 );
+
+create table bishe.exercise(
+phone varchar(11),
+time varchar(8),
+type varchar(8),
+strength varchar(8),
+ctime varchar(8)
+);
