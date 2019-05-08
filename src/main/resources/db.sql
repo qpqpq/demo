@@ -98,3 +98,12 @@ type varchar(8),
 strength varchar(8),
 ctime varchar(8)
 );
+
+create table bishe.yao(
+phone varchar(11),
+name varchar(64),
+zhuzhi varchar(128),
+time varchar(8),
+num varchar(8),
+type varchar(8)
+);

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.YaoDao">
+    <!--phone varchar(11),-->
+    <!--name varchar(64),-->
+    <!--zhuzhi varchar(128),-->
+    <!--time varchar(8),-->
+    <!--num varchar(8),-->
+    <!--type varchar(8)-->
+    <resultMap id="BaseResultMap" type="com.example.demo.bo.Yao">
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="zhuzhi" property="zhuzhi" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        phone,name,zhuzhi,time,num,type
+    </sql>
+    <insert id="insertYao" parameterType="com.example.demo.bo.Yao">
+        insert into yao values(
+          #{phone},#{name},#{zhuzhi},#{time},#{num},#{type}
+        )
+    </insert>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from yao
+        where phone = #{phone,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>
