@@ -8,6 +8,7 @@ import com.example.demo.biz.WeightBiz;
 import com.example.demo.bo.User;
 import com.example.demo.bo.Weight;
 import com.example.demo.dao.UserDao;
+import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,27 +40,32 @@ public class WeightController {
             String height = user.getHeight();
             if (height != null) {
                 Double num = Double.valueOf(weight.getNum());
-                double v = num / Double.valueOf(height) / Double.valueOf(height)*10000;
-                return "{\"bmi\":" + v + "}";
+                double v = num / Double.valueOf(height) / Double.valueOf(height) * 10000;
+                return Constant.getSuccess(v);
             }
-            return new Date() + " 上传成功";
+            return Constant.getSuccess(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{}";
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
-        String timeType = map.get("timeType");
-        List<Weight> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
-        JSONArray jsonArray = new JSONArray();
-        for (Weight weight : list) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(weight.getNum(), weight.getTime());
-            jsonArray.add(jsonObject);
+        try {
+            String timeType = map.get("timeType");
+            List<Weight> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            JSONArray jsonArray = new JSONArray();
+            for (Weight weight : list) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(weight.getNum(), weight.getTime());
+                jsonArray.add(jsonObject);
+            }
+            return Constant.getSuccess(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Constant.FAIL;
         }
-        return jsonArray.toString();
     }
 }

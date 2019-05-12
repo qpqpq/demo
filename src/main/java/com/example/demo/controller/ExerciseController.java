@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.ExerciseBiz;
 import com.example.demo.bo.Exercise;
+import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,25 +34,31 @@ public class ExerciseController {
         try {
             System.out.println(JSON.toJSONString(exercise));
             exerciseBiz.saveExercise(exercise);
-            return new Date() + " 上传成功";
+            return Constant.getSuccess(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{}";
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
-        String timeType = map.get("timeType");
-        List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
-        JSONArray jsonArray = new JSONArray();
-        for(Exercise exercise:list){
-            JSONObject jsonObject=new JSONObject();
-            jsonObject.put(exercise.getType(), exercise.getCtime());
-            jsonArray.add(jsonObject);
+        try {
+            String timeType = map.get("timeType");
+
+            List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            JSONArray jsonArray = new JSONArray();
+            for (Exercise exercise : list) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(exercise.getType(), exercise.getCtime());
+                jsonArray.add(jsonObject);
+            }
+            return Constant.getSuccess(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Constant.FAIL;
         }
-        return jsonArray.toString();
     }
 }
 

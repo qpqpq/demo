@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.PressureBiz;
 import com.example.demo.bo.Pressure;
+import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,32 +34,36 @@ public class PressureController {
         try {
             System.out.println(JSON.toJSONString(pressure));
             pressureBiz.savePressure(pressure);
-            return new Date() + " 上传成功";
+            return Constant.getSuccess(null);
         } catch (Exception e) {
-            return "{}";
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
-        String timeType = map.get("timeType");
-        String token = header.get("token").substring(0, 11);
-        List<Pressure> list = pressureBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
-        JSONObject jsonObject = new JSONObject();
-        JSONArray high = new JSONArray();
-        JSONArray low = new JSONArray();
-        for (Pressure pressure : list) {
-            JSONObject h = new JSONObject();
-            h.put(pressure.getHigh(), pressure.getTime());
-            high.add(h);
-            JSONObject l = new JSONObject();
-            l.put(pressure.getLow(), pressure.getTime());
-            low.add(l);
+        try {
+            String timeType = map.get("timeType");
+            List<Pressure> list = pressureBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            JSONObject jsonObject = new JSONObject();
+            JSONArray high = new JSONArray();
+            JSONArray low = new JSONArray();
+            for (Pressure pressure : list) {
+                JSONObject h = new JSONObject();
+                h.put(pressure.getHigh(), pressure.getTime());
+                high.add(h);
+                JSONObject l = new JSONObject();
+                l.put(pressure.getLow(), pressure.getTime());
+                low.add(l);
+            }
+            jsonObject.put("high", high);
+            jsonObject.put("low", low);
+            return Constant.getSuccess(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Constant.FAIL;
         }
-        jsonObject.put("high",high );
-        jsonObject.put("low",low );
-        return jsonObject.toString();
     }
 
 }

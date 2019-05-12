@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.SugarBiz;
 import com.example.demo.bo.Sugar;
+import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,28 +27,32 @@ public class SugarController {
 
     @Validator
     @PostMapping("/save")
-    public String save(@RequestHeader Map<String,String>header, @RequestBody Sugar sugar){
+    public String save(@RequestHeader Map<String, String> header, @RequestBody Sugar sugar) {
         try {
             System.out.println(JSON.toJSONString(sugar));
             sugarBiz.saveSugar(sugar);
-            return new Date() + " 上传成功";
+            return Constant.getSuccess(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{}";
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/get")
-    public String get(@RequestHeader Map<String,String>header, @RequestBody Map<String,String> map){
-        String timeType = map.get("timeType");
-        List<Sugar> list = sugarBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
-        JSONArray jsonArray = new JSONArray();
-        for (Sugar sugar : list) {
-            JSONObject h = new JSONObject();
-            h.put(sugar.getNum(), sugar.getTime());
-            jsonArray.add(h);
+    public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
+        try {
+            String timeType = map.get("timeType");
+            List<Sugar> list = sugarBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            JSONArray jsonArray = new JSONArray();
+            for (Sugar sugar : list) {
+                JSONObject h = new JSONObject();
+                h.put(sugar.getNum(), sugar.getTime());
+                jsonArray.add(h);
+            }
+            return Constant.getSuccess(jsonArray);
+        } catch (Exception e) {
+            return Constant.FAIL;
         }
-        return jsonArray.toString();
     }
 }

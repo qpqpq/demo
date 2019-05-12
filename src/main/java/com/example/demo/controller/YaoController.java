@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.YaoBiz;
 import com.example.demo.bo.Yao;
+import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,23 +34,28 @@ public class YaoController {
         try {
             System.out.println(JSON.toJSONString(yao));
             yaoBiz.saveYao(yao);
-            return new Date() + " 上传成功";
+            return Constant.getSuccess(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{}";
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header) {
-        List<Yao> list = yaoBiz.selectByCondition(header.get("token").substring(0, 11));
-        JSONArray jsonArray = new JSONArray();
-        for(Yao yao:list){
-            JSONObject jsonObject=JSON.parseObject(JSON.toJSONString(yao));
-            jsonArray.add(jsonObject);
+        try {
+            List<Yao> list = yaoBiz.selectByCondition(header.get("token").substring(0, 11));
+            JSONArray jsonArray = new JSONArray();
+            for (Yao yao : list) {
+                JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(yao));
+                jsonArray.add(jsonObject);
+            }
+            return Constant.getSuccess(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Constant.FAIL;
         }
-        return jsonArray.toString();
     }
 }
 

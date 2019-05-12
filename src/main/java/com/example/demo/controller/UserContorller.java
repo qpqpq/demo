@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.UserBiz;
 import com.example.demo.bo.User;
+import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,33 +48,37 @@ public class UserContorller {
         try {
             System.out.println(JSON.toJSONString(user));
             userBiz.registerUser(user);
-            return new Date() + " 注册成功";
-        }catch (Exception e){
-            return "{}";
+            return Constant.getSuccess(null);
+        } catch (Exception e) {
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/info")
     public String login(@RequestHeader Map<String, String> header) {
-        User user = userBiz.selectById(header.get("token").substring(0, 11));
-        if(user!=null){
-            user.setPassword("");
-            return JSON.toJSONString(user);
-        }else{
-            return "{}";
+        try {
+            User user = userBiz.selectById(header.get("token").substring(0, 11));
+            if (user != null) {
+                user.setPassword("");
+                return Constant.getSuccess(user);
+            } else {
+                return Constant.FAIL;
+            }
+        } catch (Exception e) {
+            return Constant.FAIL;
         }
     }
 
     @Validator
     @PostMapping("/info/update")
-    public String update(@RequestHeader Map<String, String> header,@RequestBody User user) {
+    public String update(@RequestHeader Map<String, String> header, @RequestBody User user) {
         try {
             System.out.println(JSON.toJSONString(user));
             userBiz.updateUser(user);
-            return new Date() + " 修改成功";
-        }catch (Exception e){
-            return "{}";
+            return Constant.getSuccess(null);
+        } catch (Exception e) {
+            return Constant.FAIL;
         }
     }
 
