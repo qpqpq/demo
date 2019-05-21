@@ -29,6 +29,9 @@
         from yao
         where phone = #{phone,jdbcType=VARCHAR}
     </select>
+    <delete id="delete" parameterType="java.lang.String">
+        delete from yao where name = #{name,jdbcType=VARCHAR}
+    </delete>
 
 
 </mapper>

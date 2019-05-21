@@ -10,11 +10,11 @@ import java.net.URLConnection;
 
 /**
  * @author pangkun
- * @date 2019/5/8 上午11:57
+ * @date 2019/5/21 下午3:41
  */
-public class Save {
+public class Delete {
     public static void main(String[] args) throws IOException, JSONException {
-        URLConnection urlConnection = new URL("http://127.0.0.1:8080/yao/save").openConnection();
+        URLConnection urlConnection = new URL("http://127.0.0.1:8080/yao/delete").openConnection();
         HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
         httpURLConnection.setDoOutput(true);
         httpURLConnection.setDoInput(true);
@@ -27,12 +27,7 @@ public class Save {
         httpURLConnection.connect();
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phone", "12345678901");
         jsonObject.put("name","sdfs" );
-        jsonObject.put("zhuzhi","sd" );
-        jsonObject.put("time", "20190202");
-        jsonObject.put("type", "2");
-        jsonObject.put("num","23" );
         bufferedWriter.write(jsonObject.toString());
         bufferedWriter.flush();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));

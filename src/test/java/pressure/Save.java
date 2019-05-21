@@ -28,10 +28,9 @@ public class Save {
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("phone", "12345678901");
-        jsonObject.put("high", String.valueOf((int) (Math.random() * 200)));
-        jsonObject.put("low", String.valueOf((int) (Math.random() * 200)));
-        jsonObject.put("high", String.valueOf((int) (Math.random() * 200)));
-        jsonObject.put("maibo", String.valueOf((int) (Math.random() * 200)));
+        jsonObject.put("high", String.valueOf(120));
+        jsonObject.put("low", String.valueOf(80));
+        jsonObject.put("maibo", String.valueOf((70)));
         jsonObject.put("time", String.valueOf(System.currentTimeMillis()));
         bufferedWriter.write(jsonObject.toString());
         bufferedWriter.flush();

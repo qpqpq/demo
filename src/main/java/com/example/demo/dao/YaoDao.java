@@ -18,4 +18,6 @@ public interface YaoDao {
 
     List<Yao> selectById(String phone);
 
+    void delete(String name);
+
 }

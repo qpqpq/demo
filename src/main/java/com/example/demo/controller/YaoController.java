@@ -28,12 +28,26 @@ public class YaoController {
     //                 用药
     //                         保存   /yao/save                   Yao
     //                         获取   /yao/get                                      [{Yao},{}...]
+    //                         删除   /yao/delete                 name
     @Validator
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody Yao yao) {
         try {
             System.out.println(JSON.toJSONString(yao));
             yaoBiz.saveYao(yao);
+            return Constant.getSuccess(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Constant.FAIL;
+        }
+    }
+
+    @Validator
+    @PostMapping("/delete")
+    public String delete(@RequestHeader Map<String, String> header, @RequestBody Yao yao) {
+        try {
+            System.out.println(JSON.toJSONString(yao));
+            yaoBiz.delete(yao.getName());
             return Constant.getSuccess(null);
         } catch (Exception e) {
             e.printStackTrace();

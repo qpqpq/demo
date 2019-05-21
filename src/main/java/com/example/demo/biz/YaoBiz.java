@@ -26,5 +26,8 @@ public class YaoBiz {
         return yaos;
     }
 
+    public void delete(String name){
+        yaoService.delete(name);
+    }
 
 }

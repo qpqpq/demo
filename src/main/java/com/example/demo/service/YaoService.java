@@ -27,5 +27,8 @@ public class YaoService {
         return yaoDao.selectById(phone);
     }
 
+    public void delete(String name){
+        yaoDao.delete(name);
+    }
 
 }
