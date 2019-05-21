@@ -35,6 +35,8 @@ public class PressureController {
     public String save(@RequestHeader Map<String, String> header, @RequestBody Pressure pressure) {
         try {
             System.out.println(JSON.toJSONString(pressure));
+            String phone = header.get("token").substring(0, 11);
+            pressure.setPhone(phone);
             pressureBiz.savePressure(pressure);
             return Constant.getSuccess(null);
         } catch (Exception e) {

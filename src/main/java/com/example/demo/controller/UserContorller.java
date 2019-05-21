@@ -78,6 +78,8 @@ public class UserContorller {
     public String update(@RequestHeader Map<String, String> header, @RequestBody User user) {
         try {
             System.out.println(JSON.toJSONString(user));
+            String phone = header.get("token").substring(0, 11);
+            user.setPhone(phone);
             userBiz.updateUser(user);
             return Constant.getSuccess(null);
         } catch (Exception e) {

@@ -36,6 +36,8 @@ public class WeightController {
     public String save(@RequestHeader Map<String, String> header, @RequestBody Weight weight) {
         try {
             System.out.println(JSON.toJSONString(weight));
+            String phone = header.get("token").substring(0, 11);
+            weight.setPhone(phone);
             weightBiz.saveWeight(weight);
             User user = userDao.selectById(header.get("token").substring(0, 11));
             String height = user.getHeight();

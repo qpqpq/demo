@@ -31,6 +31,8 @@ public class SugarController {
     public String save(@RequestHeader Map<String, String> header, @RequestBody Sugar sugar) {
         try {
             System.out.println(JSON.toJSONString(sugar));
+            String phone = header.get("token").substring(0, 11);
+            sugar.setPhone(phone);
             sugarBiz.saveSugar(sugar);
             return Constant.getSuccess(null);
         } catch (Exception e) {

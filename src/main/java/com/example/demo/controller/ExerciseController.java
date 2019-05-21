@@ -34,6 +34,8 @@ public class ExerciseController {
     public String save(@RequestHeader Map<String, String> header, @RequestBody Exercise exercise) {
         try {
             System.out.println(JSON.toJSONString(exercise));
+            String phone = header.get("token").substring(0, 11);
+            exercise.setPhone(phone);
             exerciseBiz.saveExercise(exercise);
             return Constant.getSuccess(null);
         } catch (Exception e) {

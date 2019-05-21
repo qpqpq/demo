@@ -35,6 +35,8 @@ public class YaoController {
     public String save(@RequestHeader Map<String, String> header, @RequestBody Yao yao) {
         try {
             System.out.println(JSON.toJSONString(yao));
+            String phone = header.get("token").substring(0, 11);
+            yao.setPhone(phone);
             yaoBiz.saveYao(yao);
             return Constant.getSuccess(null);
         } catch (Exception e) {

@@ -29,6 +29,8 @@ public class StateController {
     public String save(@RequestHeader Map<String, String> header, @RequestBody State state) {
         try {
             System.out.println(JSON.toJSONString(state));
+            String phone = header.get("token").substring(0, 11);
+            state.setPhone(phone);
             stateBiz.saveState(state);
             return Constant.getSuccess(null);
         } catch (Exception e) {
