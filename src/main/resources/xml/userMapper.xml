@@ -26,13 +26,15 @@
         <result column="weight" property="weight" jdbcType="VARCHAR"/>
         <result column="xiyan" property="xiyan" jdbcType="VARCHAR"/>
         <result column="yinjiu" property="yinjiu" jdbcType="VARCHAR"/>
+        <result column="food" property="yinjiu" jdbcType="VARCHAR"/>
+        <result column="address" property="yinjiu" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        phone,name,password,sex,birthday,idcard,postcode,health,height,weight,xiyan,yinjiu
+        phone,name,password,sex,birthday,idcard,postcode,health,height,weight,xiyan,yinjiu,food,address
     </sql>
     <insert id="insertUser" parameterType="com.example.demo.bo.User">
         insert into user values(
-          #{phone},#{name},#{password},#{sex},#{birthday},#{idcard},#{postcode},#{health},#{height},#{weight},#{xiyan},#{yinjiu}
+          #{phone},#{name},#{password},#{sex},#{birthday},#{idcard},#{postcode},#{health},#{height},#{weight},#{xiyan},#{yinjiu},#{food},#{address}
         )
     </insert>
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -114,6 +116,12 @@
             </if>
             <if test="yinjiu != null and yinjiu !=''">
                 yinjiu = #{yinjiu,jdbcType=VARCHAR},
+            </if>
+            <if test="food != null and food !=''">
+                food = #{food,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null and address !=''">
+                address = #{address,jdbcType=VARCHAR},
             </if>
         </set>
         where phone = #{phone,jdbcType=VARCHAR}

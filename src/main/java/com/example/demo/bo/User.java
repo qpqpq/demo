@@ -17,6 +17,8 @@ public class User {
     private String weight;//kg
     private String xiyan;
     private String yinjiu;
+    private String food;//饮食习惯0123
+    private String address;//地址
 
     public User() {
 
@@ -116,5 +118,21 @@ public class User {
 
     public void setYinjiu(String yinjiu) {
         this.yinjiu = yinjiu;
+    }
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

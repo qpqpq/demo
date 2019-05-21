@@ -67,7 +67,9 @@ health varchar(1),
 height varchar(8),
 weight varchar(8),
 xiyan varchar(8),
-yinjiu varchar(8)
+yinjiu varchar(8),
+food varchar(4),
+address varchar(64)
 );
 
 create table bishe.pressure(
