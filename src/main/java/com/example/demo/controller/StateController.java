@@ -24,6 +24,7 @@ public class StateController {
     private StateBiz stateBiz;
 
     @Validator
+    @CrossOrigin
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody State state) {
         try {
@@ -37,6 +38,7 @@ public class StateController {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header) {
         try {

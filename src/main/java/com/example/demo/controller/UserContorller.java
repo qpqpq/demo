@@ -43,6 +43,7 @@ public class UserContorller {
     //                         保存   /yao/save                   Yao
     //                         获取   /yao/get                                      [{Yao},{}...]
     //
+    @CrossOrigin
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         try {
@@ -55,6 +56,7 @@ public class UserContorller {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/info")
     public String login(@RequestHeader Map<String, String> header) {
         try {
@@ -71,6 +73,7 @@ public class UserContorller {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/info/update")
     public String update(@RequestHeader Map<String, String> header, @RequestBody User user) {
         try {

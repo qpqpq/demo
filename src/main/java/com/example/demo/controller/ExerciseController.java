@@ -29,6 +29,7 @@ public class ExerciseController {
     //                         保存   /exercise/save              Exercise
     //                         获取   /exercise/get               {timeType:012}    [{type:ctime},{}...]
     @Validator
+    @CrossOrigin
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody Exercise exercise) {
         try {
@@ -42,6 +43,7 @@ public class ExerciseController {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {

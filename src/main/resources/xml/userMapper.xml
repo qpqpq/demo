@@ -26,8 +26,8 @@
         <result column="weight" property="weight" jdbcType="VARCHAR"/>
         <result column="xiyan" property="xiyan" jdbcType="VARCHAR"/>
         <result column="yinjiu" property="yinjiu" jdbcType="VARCHAR"/>
-        <result column="food" property="yinjiu" jdbcType="VARCHAR"/>
-        <result column="address" property="yinjiu" jdbcType="VARCHAR"/>
+        <result column="food" property="food" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
         phone,name,password,sex,birthday,idcard,postcode,health,height,weight,xiyan,yinjiu,food,address

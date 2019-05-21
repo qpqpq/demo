@@ -30,6 +30,7 @@ public class YaoController {
     //                         获取   /yao/get                                      [{Yao},{}...]
     //                         删除   /yao/delete                 name
     @Validator
+    @CrossOrigin
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody Yao yao) {
         try {
@@ -43,6 +44,7 @@ public class YaoController {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/delete")
     public String delete(@RequestHeader Map<String, String> header, @RequestBody Yao yao) {
         try {
@@ -56,6 +58,7 @@ public class YaoController {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header) {
         try {

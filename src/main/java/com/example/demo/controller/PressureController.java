@@ -7,6 +7,7 @@ import com.example.demo.annotation.Validator;
 import com.example.demo.biz.PressureBiz;
 import com.example.demo.bo.Pressure;
 import com.example.demo.util.Constant;
+import com.example.demo.util.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class PressureController {
     //                         保存   /pressure/save              Pressure
     //                         获取   /pressure/get               {timeType:012}    {high:[{num,time},{},{}...],low:[{},{},{}...]}
     @Validator
+    @CrossOrigin
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody Pressure pressure) {
         try {
@@ -36,11 +38,13 @@ public class PressureController {
             pressureBiz.savePressure(pressure);
             return Constant.getSuccess(null);
         } catch (Exception e) {
+            e.printStackTrace();
             return Constant.FAIL;
         }
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {
@@ -51,10 +55,12 @@ public class PressureController {
             JSONArray low = new JSONArray();
             for (Pressure pressure : list) {
                 JSONObject h = new JSONObject();
-                h.put(pressure.getHigh(), pressure.getTime());
+                h.put("num", pressure.getHigh());
+                h.put("time", Time.stampToDate(pressure.getTime()));
                 high.add(h);
                 JSONObject l = new JSONObject();
-                l.put(pressure.getLow(), pressure.getTime());
+                l.put("num", pressure.getLow());
+                l.put("time", Time.stampToDate(pressure.getTime()));
                 low.add(l);
             }
             jsonObject.put("high", high);

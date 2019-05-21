@@ -1,7 +1,5 @@
 package com.example.demo.bo;
 
-import java.sql.Timestamp;
-
 /**
  * @author pangkun
  * @date 2019/5/5 下午5:20

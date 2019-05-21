@@ -31,6 +31,7 @@ public class WeightController {
     private UserDao userDao;
 
     @Validator
+    @CrossOrigin
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody Weight weight) {
         try {
@@ -51,6 +52,7 @@ public class WeightController {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {

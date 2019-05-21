@@ -26,6 +26,7 @@ public class SugarController {
     private SugarBiz sugarBiz;
 
     @Validator
+    @CrossOrigin
     @PostMapping("/save")
     public String save(@RequestHeader Map<String, String> header, @RequestBody Sugar sugar) {
         try {
@@ -39,6 +40,7 @@ public class SugarController {
     }
 
     @Validator
+    @CrossOrigin
     @PostMapping("/get")
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {
@@ -47,7 +49,8 @@ public class SugarController {
             JSONArray jsonArray = new JSONArray();
             for (Sugar sugar : list) {
                 JSONObject h = new JSONObject();
-                h.put(sugar.getNum(), sugar.getTime());
+                h.put("num", sugar.getNum());
+                h.put("time", sugar.getTime());
                 jsonArray.add(h);
             }
             return Constant.getSuccess(jsonArray);
