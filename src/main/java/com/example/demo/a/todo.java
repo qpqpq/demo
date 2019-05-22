@@ -1,6 +1,7 @@
 //package com.example.demo.a;
 //todo 血糖计算
 ///**
+//todo 血压平均值计算
 // * @author pangkun
 // * @date 2019/5/7 上午10:06
 // */
@@ -8,7 +9,7 @@
 //    // TODO: 2019/5/7 token可以加过期时间
 //    // TODO: 2019/5/7 参数校验 后期可加
 
-//todo 血糖平均值 安卓tab头 注册 页面规范 按月查询（血压血糖体重运动）
+//todo 血糖平均值 安卓tab头 页面规范 注册 按月查询（血压血糖体重运动）
 //
 //    TOOLBOX SUBSCRIPTION AGREEMENT FOR EDUCATION
 //

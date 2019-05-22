@@ -58,11 +58,11 @@ public class PressureController {
             for (Pressure pressure : list) {
                 JSONObject h = new JSONObject();
                 h.put("num", pressure.getHigh());
-                h.put("time", Time.stampToDate(pressure.getTime()));
+                h.put("time", pressure.getTime());
                 high.add(h);
                 JSONObject l = new JSONObject();
                 l.put("num", pressure.getLow());
-                l.put("time", Time.stampToDate(pressure.getTime()));
+                l.put("time", pressure.getTime());
                 low.add(l);
             }
             jsonObject.put("high", high);
