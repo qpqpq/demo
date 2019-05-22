@@ -63,7 +63,8 @@ public class WeightController {
             JSONArray jsonArray = new JSONArray();
             for (Weight weight : list) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put(weight.getNum(), weight.getTime());
+                jsonObject.put("time", weight.getTime());
+                jsonObject.put("num", weight.getNum());
                 jsonArray.add(jsonObject);
             }
             return Constant.getSuccess(jsonArray);

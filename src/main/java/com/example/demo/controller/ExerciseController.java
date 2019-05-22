@@ -55,7 +55,8 @@ public class ExerciseController {
             JSONArray jsonArray = new JSONArray();
             for (Exercise exercise : list) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put(exercise.getType(), exercise.getCtime());
+                jsonObject.put("ctime", exercise.getCtime());
+                jsonObject.put("type", exercise.getType());
                 jsonArray.add(jsonObject);
             }
             return Constant.getSuccess(jsonArray);

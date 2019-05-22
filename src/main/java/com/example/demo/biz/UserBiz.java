@@ -18,7 +18,7 @@ public class UserBiz {
     private UserService userService;
 
     public int registerUser(User user) {
-        user.setPassword(SHA256.getSHA(user.getName()+user.getPassword()));
+        user.setPassword(SHA256.getSHA(user.getPhone() + user.getPassword()));
         System.out.println(JSON.toJSONString(user));
         return userService.insertUser(user);
     }
@@ -27,12 +27,12 @@ public class UserBiz {
     public User selectById(String id) {
         try {
             return userService.selectUserById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         userService.updateUser(user);
     }
 }
