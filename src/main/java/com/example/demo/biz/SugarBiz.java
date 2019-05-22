@@ -1,13 +1,15 @@
 package com.example.demo.biz;
 
-import com.example.demo.bo.Pressure;
 import com.example.demo.bo.Sugar;
 import com.example.demo.service.SugarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author pangkun
@@ -75,13 +77,14 @@ public class SugarBiz {
         sugar.setTime(sugars.get(0).getTime());
         sugar.setNum(sugars.get(0).getNum());
         int t = 1;
-        for (Sugar sugar1 : sugars) {
-            if (sugar1.getTime().equals(sugar.getTime())) {
-                sugar.setNum((Double.valueOf(sugar.getNum()) * t + Double.valueOf(sugar1.getNum())) / (++t) + "");
+        for (int i=1;i<sugars.size();i++) {
+            if (sugars.get(i).getTime().equals(sugar.getTime())) {
+                sugar.setNum((Double.valueOf(sugar.getNum()) * t + Double.valueOf(sugars.get(i).getNum())) / (++t) + "");
             } else {
                 list1.add(sugar);
-                sugar.setNum(sugar1.getNum());
-                sugar.setTime(sugar1.getTime());
+                sugar=new Sugar();
+                sugar.setNum(sugars.get(i).getNum());
+                sugar.setTime(sugars.get(i).getTime());
                 t = 1;
             }
         }
