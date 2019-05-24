@@ -59,7 +59,8 @@ public class WeightController {
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {
             String timeType = map.get("timeType");
-            List<Weight> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            String month=map.get("month");
+            List<Weight> list = weightBiz.selectByCondition(header.get("token").substring(0, 11), timeType,month);
             JSONArray jsonArray = new JSONArray();
             for (Weight weight : list) {
                 JSONObject jsonObject = new JSONObject();

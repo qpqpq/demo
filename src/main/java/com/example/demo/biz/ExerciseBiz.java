@@ -25,7 +25,7 @@ public class ExerciseBiz {
         exerciseService.insertExercise(exercise);
     }
 
-    public List<Exercise> selectByCondition(String phone, String type) {
+    public List<Exercise> selectByCondition(String phone, String type, String month) {
         List<Exercise> exercises = exerciseService.selectById(phone);
         exercises.sort(new Comparator<Exercise>() {
             @Override
@@ -66,7 +66,7 @@ public class ExerciseBiz {
             default:
                 break;
         }
-        cal(exercises);
+        cal(exercises, month);
         return exercises;
     }
 
@@ -81,65 +81,35 @@ public class ExerciseBiz {
         return "";
     }
 
-    private void cal(List<Exercise> list) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-        String format = sdf.format(new Date(Long.valueOf(System.currentTimeMillis())));
-        if (Integer.valueOf(format) % 100 == 5) {
-            //31天
-            for (int i = 20190501; i < 20190532; i++) {
-                boolean flag = false;
-                for (Exercise sugar1 : list) {
-                    if (sugar1.getTime().equals(i + "")) {
-                        System.out.println(sugar1.getTime()+" "+sugar1.getType());
-                        flag = true;
-                        break;
-                    }
-                }
-                if (flag == false) {
-                    Exercise sugar = new Exercise();
-                    sugar.setCtime("0");
-                    sugar.setStrength("0");
-                    sugar.setType("0");
-                    sugar.setTime(i + "");
-                    list.add(sugar);
-                }
-                list.sort(new Comparator<Exercise>() {
-                    @Override
-                    public int compare(Exercise o1, Exercise o2) {
-                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
-                    }
-                });
-                while (Integer.valueOf(list.get(0).getTime())<20190501){
-                    list.remove(0);
+    private void cal(List<Exercise> list, String month) {
+        for (int i = Integer.valueOf(month) * 100 + 1; i < Integer.valueOf(month) * 100 + 32; i++) {
+            boolean flag = false;
+            for (Exercise sugar1 : list) {
+                if (sugar1.getTime().equals(i + "")) {
+                    System.out.println(sugar1.getTime() + " " + sugar1.getType());
+                    flag = true;
+                    break;
                 }
             }
-        } else {
-            //30天
-            for (int i = 20190601; i < 20190631; i++) {
-                boolean flag = false;
-                for (Exercise sugar1 : list) {
-                    if (sugar1.getTime().equals(i + "")) {
-                        flag = true;
-                        break;
-                    }
+            if (flag == false) {
+                Exercise sugar = new Exercise();
+                sugar.setCtime("0");
+                sugar.setStrength("0");
+                sugar.setType("0");
+                sugar.setTime(i + "");
+                list.add(sugar);
+            }
+            list.sort(new Comparator<Exercise>() {
+                @Override
+                public int compare(Exercise o1, Exercise o2) {
+                    return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
                 }
-                if (flag == false) {
-                    Exercise sugar = new Exercise();
-                    sugar.setCtime("0");
-                    sugar.setStrength("0");
-                    sugar.setType("0");
-                    sugar.setTime(i + "");
-                    list.add(sugar);
-                }
-                list.sort(new Comparator<Exercise>() {
-                    @Override
-                    public int compare(Exercise o1, Exercise o2) {
-                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
-                    }
-                });
-                while (Integer.valueOf(list.get(0).getTime())<20190601){
-                    list.remove(0);
-                }
+            });
+            while (Integer.valueOf(list.get(0).getTime()) < Integer.valueOf(month) * 100) {
+                list.remove(0);
+            }
+            while (Integer.valueOf(list.get(list.size() - 1).getTime()) > Integer.valueOf(month) * 100 + 32) {
+                list.remove(list.size() - 1);
             }
         }
     }

@@ -50,8 +50,8 @@ public class ExerciseController {
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {
             String timeType = map.get("timeType");
-
-            List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            String month = map.get("month");
+            List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType,month);
             JSONArray jsonArray = new JSONArray();
             for (Exercise exercise : list) {
                 JSONObject jsonObject = new JSONObject();

@@ -51,7 +51,8 @@ public class PressureController {
     public String get(@RequestHeader Map<String, String> header, @RequestBody Map<String, String> map) {
         try {
             String timeType = map.get("timeType");
-            List<Pressure> list = pressureBiz.selectByCondition(header.get("token").substring(0, 11), timeType);
+            String month = map.get("month");
+            List<Pressure> list = pressureBiz.selectByCondition(header.get("token").substring(0, 11), timeType,month);
             JSONObject jsonObject = new JSONObject();
             JSONArray high = new JSONArray();
             JSONArray low = new JSONArray();
