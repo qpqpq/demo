@@ -95,6 +95,7 @@ public class PressureBiz {
             }
         }
         list1.add(pressure);
+        cal(list1);
         System.out.println(list1.size());
         return list1;
     }
@@ -107,6 +108,66 @@ public class PressureBiz {
         res = simpleDateFormat.format(date);
         return res;
     }
-
+    private void cal(List<Pressure> list) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        String format = sdf.format(new Date(Long.valueOf(System.currentTimeMillis())));
+        if (Integer.valueOf(format) % 100 == 5) {
+            //31天
+            for (int i = 20190501; i < 20190532; i++) {
+                boolean flag = false;
+                for (Pressure sugar1 : list) {
+                    if (sugar1.getTime().equals(i + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    Pressure sugar = new Pressure();
+                    sugar.setLow("0");
+                    sugar.setHigh("0");
+                    sugar.setMaibo("0");
+                    sugar.setTime(i + "");
+                    list.add(sugar);
+                }
+                list.sort(new Comparator<Pressure>() {
+                    @Override
+                    public int compare(Pressure o1, Pressure o2) {
+                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
+                    }
+                });
+                while (Integer.valueOf(list.get(0).getTime())<20190501){
+                    list.remove(0);
+                }
+            }
+        } else {
+            //30天
+            for (int i = 20190601; i < 20190631; i++) {
+                boolean flag = false;
+                for (Pressure sugar1 : list) {
+                    if (sugar1.getTime().equals(i + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    Pressure sugar = new Pressure();
+                    sugar.setMaibo("0");
+                    sugar.setHigh("0");
+                    sugar.setLow("0");
+                    sugar.setTime(i + "");
+                    list.add(sugar);
+                }
+                list.sort(new Comparator<Pressure>() {
+                    @Override
+                    public int compare(Pressure o1, Pressure o2) {
+                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
+                    }
+                });
+                while (Integer.valueOf(list.get(0).getTime())<20190601){
+                    list.remove(0);
+                }
+            }
+        }
+    }
 
 }

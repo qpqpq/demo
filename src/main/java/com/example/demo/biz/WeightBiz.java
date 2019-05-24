@@ -1,6 +1,5 @@
 package com.example.demo.biz;
 
-import com.example.demo.bo.Sugar;
 import com.example.demo.bo.Weight;
 import com.example.demo.service.WeightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +66,7 @@ public class WeightBiz {
             default:
                 break;
         }
+        cal(weights);
         return weights;
     }
 
@@ -79,5 +79,63 @@ public class WeightBiz {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private void cal(List<Weight> list) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        String format = sdf.format(new Date(Long.valueOf(System.currentTimeMillis())));
+        if (Integer.valueOf(format) % 100 == 5) {
+            //31天
+            for (int i = 20190501; i < 20190532; i++) {
+                boolean flag = false;
+                for (Weight sugar1 : list) {
+                    if (sugar1.getTime().equals(i + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    Weight sugar = new Weight();
+                    sugar.setNum("0");
+                    sugar.setTime(i + "");
+                    list.add(sugar);
+                }
+                list.sort(new Comparator<Weight>() {
+                    @Override
+                    public int compare(Weight o1, Weight o2) {
+                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
+                    }
+                });
+                while (Integer.valueOf(list.get(0).getTime())<20190501){
+                    list.remove(0);
+                }
+            }
+        } else {
+            //30天
+            for (int i = 20190601; i < 20190631; i++) {
+                boolean flag = false;
+                for (Weight sugar1 : list) {
+                    if (sugar1.getTime().equals(i + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    Weight sugar = new Weight();
+                    sugar.setNum("0");
+                    sugar.setTime(i + "");
+                    list.add(sugar);
+                }
+                list.sort(new Comparator<Weight>() {
+                    @Override
+                    public int compare(Weight o1, Weight o2) {
+                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
+                    }
+                });
+                while (Integer.valueOf(list.get(0).getTime())<20190601){
+                    list.remove(0);
+                }
+            }
+        }
     }
 }

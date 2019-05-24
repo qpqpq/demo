@@ -77,12 +77,12 @@ public class SugarBiz {
         sugar.setTime(sugars.get(0).getTime());
         sugar.setNum(sugars.get(0).getNum());
         int t = 1;
-        for (int i=1;i<sugars.size();i++) {
+        for (int i = 1; i < sugars.size(); i++) {
             if (sugars.get(i).getTime().equals(sugar.getTime())) {
                 sugar.setNum((Double.valueOf(sugar.getNum()) * t + Double.valueOf(sugars.get(i).getNum())) / (++t) + "");
             } else {
                 list1.add(sugar);
-                sugar=new Sugar();
+                sugar = new Sugar();
                 sugar.setNum(sugars.get(i).getNum());
                 sugar.setTime(sugars.get(i).getTime());
                 t = 1;
@@ -90,6 +90,7 @@ public class SugarBiz {
         }
         list1.add(sugar);
         System.out.println(list1.size());
+        cal(list1);
         return list1;
     }
 
@@ -102,5 +103,65 @@ public class SugarBiz {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private void cal(List<Sugar> list) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        String format = sdf.format(new Date(Long.valueOf(System.currentTimeMillis())));
+        if (Integer.valueOf(format) % 100 == 5) {
+            //31天
+            for (int i = 20190501; i < 20190532; i++) {
+                boolean flag = false;
+                for (Sugar sugar1 : list) {
+                    if (sugar1.getTime().equals(i + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    Sugar sugar = new Sugar();
+                    sugar.setNum("0");
+                    sugar.setQujian("0");
+                    sugar.setTime(i + "");
+                    list.add(sugar);
+                }
+                list.sort(new Comparator<Sugar>() {
+                    @Override
+                    public int compare(Sugar o1, Sugar o2) {
+                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
+                    }
+                });
+                while (Integer.valueOf(list.get(0).getTime())<20190501){
+                    list.remove(0);
+                }
+            }
+        } else {
+            //30天
+            for (int i = 20190601; i < 20190631; i++) {
+                boolean flag = false;
+                for (Sugar sugar1 : list) {
+                    if (sugar1.getTime().equals(i + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    Sugar sugar = new Sugar();
+                    sugar.setNum("0");
+                    sugar.setQujian("0");
+                    sugar.setTime(i + "");
+                    list.add(sugar);
+                }
+                list.sort(new Comparator<Sugar>() {
+                    @Override
+                    public int compare(Sugar o1, Sugar o2) {
+                        return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
+                    }
+                });
+                while (Integer.valueOf(list.get(0).getTime())<20190601){
+                    list.remove(0);
+                }
+            }
+        }
     }
 }
