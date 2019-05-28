@@ -66,7 +66,9 @@ public class ExerciseBiz {
             default:
                 break;
         }
-        cal(exercises, month);
+        if (month != null && !month.equals("") && month.length() == 6) {
+            cal(exercises, month);
+        }
         return exercises;
     }
 

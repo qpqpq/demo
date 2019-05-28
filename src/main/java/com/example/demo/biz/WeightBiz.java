@@ -66,7 +66,9 @@ public class WeightBiz {
             default:
                 break;
         }
-        cal(weights, month);
+        if (month != null && !month.equals("") && month.length() == 6) {
+            cal(weights, month);
+        }
         return weights;
     }
 

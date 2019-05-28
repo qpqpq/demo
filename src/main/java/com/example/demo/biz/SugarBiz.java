@@ -90,7 +90,9 @@ public class SugarBiz {
         }
         list1.add(sugar);
         System.out.println(list1.size());
-        cal(list1, month);
+        if (month != null && !month.equals("") && month.length() == 6) {
+            cal(list1, month);
+        }
         return list1;
     }
 

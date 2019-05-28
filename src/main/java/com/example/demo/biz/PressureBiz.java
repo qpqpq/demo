@@ -95,7 +95,9 @@ public class PressureBiz {
             }
         }
         list1.add(pressure);
-        cal(list1, month);
+        if (month != null && !month.equals("") && month.length() == 6) {
+            cal(list1, month);
+        }
         System.out.println(list1.size());
         return list1;
     }
