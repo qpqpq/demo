@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.example.demo.annotation.Validator;
 import com.example.demo.biz.StateBiz;
 import com.example.demo.bo.State;
+import com.example.demo.dao.StateDao;
 import com.example.demo.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class StateController {
     @Autowired
     private StateBiz stateBiz;
 
+    @Autowired
+    private StateDao stateDao;
+
     @Validator
     @CrossOrigin
     @PostMapping("/save")
@@ -30,8 +34,13 @@ public class StateController {
         try {
             System.out.println(JSON.toJSONString(state));
             String phone = header.get("token").substring(0, 11);
+            List<State> states = stateDao.selectById(phone);
             state.setPhone(phone);
-            stateBiz.saveState(state);
+            if (states.size() == 0) {
+                stateBiz.saveState(state);
+            }else{
+                stateDao.updateState(state);
+            }
             return Constant.getSuccess(null);
         } catch (Exception e) {
             e.printStackTrace();

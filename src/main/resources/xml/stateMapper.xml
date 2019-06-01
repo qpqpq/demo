@@ -14,6 +14,9 @@
           #{phone},#{state}
         )
     </insert>
+    <update id="updateState" parameterType="com.example.demo.bo.State">
+        update state set state=#{state} where phone = #{phone}
+    </update>
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>

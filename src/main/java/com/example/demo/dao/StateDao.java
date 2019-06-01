@@ -18,4 +18,5 @@ public interface StateDao {
 
     List<State> selectById(String phone);
 
+    void updateState(State state);
 }
