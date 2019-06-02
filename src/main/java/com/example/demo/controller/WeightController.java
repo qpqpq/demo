@@ -41,6 +41,7 @@ public class WeightController {
             weightBiz.saveWeight(weight);
             User user = userDao.selectById(header.get("token").substring(0, 11));
             User user1=new User();
+            user1.setPhone(phone);
             user1.setWeight(weight.getNum());
             userDao.updateUser(user1);
             String height = user.getHeight();
