@@ -51,7 +51,7 @@ public class ExerciseController {
         try {
             String timeType = map.get("timeType");
             String month = map.get("month");
-            List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType,month);
+            List<Exercise> list = exerciseBiz.selectByCondition(header.get("token").substring(0, 11), timeType==null?"2":timeType,month);
             JSONArray jsonArray = new JSONArray();
             for (Exercise exercise : list) {
                 JSONObject jsonObject = new JSONObject();
