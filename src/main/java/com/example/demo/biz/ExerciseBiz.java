@@ -69,8 +69,9 @@ public class ExerciseBiz {
         List<Exercise> cal = new ArrayList<>();
         if (month != null && !month.equals("") && month.length() == 6) {
             cal = cal(exercises, month);
+            return cal;
         }
-        return cal;
+        return exercises;
     }
 
 
