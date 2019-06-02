@@ -7,11 +7,9 @@ import com.example.demo.annotation.Validator;
 import com.example.demo.biz.PressureBiz;
 import com.example.demo.bo.Pressure;
 import com.example.demo.util.Constant;
-import com.example.demo.util.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +50,11 @@ public class PressureController {
         try {
             String timeType = map.get("timeType");
             String month = map.get("month");
-            List<Pressure> list = pressureBiz.selectByCondition(header.get("token").substring(0, 11), timeType==null?"2":timeType,month);
+            List<Pressure> list = pressureBiz.selectByCondition(header.get("token").substring(0, 11), timeType == null ? "2" : timeType, month);
             JSONObject jsonObject = new JSONObject();
             JSONArray high = new JSONArray();
             JSONArray low = new JSONArray();
+            JSONArray maibo = new JSONArray();
             for (Pressure pressure : list) {
                 JSONObject h = new JSONObject();
                 h.put("num", pressure.getHigh());
@@ -65,9 +64,14 @@ public class PressureController {
                 l.put("num", pressure.getLow());
                 l.put("time", pressure.getTime());
                 low.add(l);
+                JSONObject m = new JSONObject();
+                m.put("maibo", pressure.getMaibo());
+                m.put("time", pressure.getTime());
+                maibo.add(m);
             }
             jsonObject.put("high", high);
             jsonObject.put("low", low);
+            jsonObject.put("maibo", maibo);
             return Constant.getSuccess(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
