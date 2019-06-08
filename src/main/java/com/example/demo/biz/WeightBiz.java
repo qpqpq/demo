@@ -69,7 +69,21 @@ public class WeightBiz {
         if (month != null && !month.equals("") && month.length() == 6) {
             cal(weights, month);
         }
-        return weights;
+        List<Weight> list1 = new ArrayList<>();
+        for (int i = 0; i < weights.size() - 1; ) {
+            Weight weight = weights.get(i);
+            for (int j = i + 1; j < weights.size(); j++) {
+                if (weight.getTime().equals(weights.get(j))) {
+                    weight.setNum(String.valueOf(Double.valueOf(weight.getNum()) + Double.valueOf(weights.get(j).getNum())));
+                } else {
+                    weight.setNum(String.valueOf(Double.valueOf(weight.getNum()) / (j - i)));
+                    list1.add(weight);
+                    i = j;
+                    break;
+                }
+            }
+        }
+        return list1;
     }
 
 

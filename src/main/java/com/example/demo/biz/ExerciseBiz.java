@@ -71,6 +71,22 @@ public class ExerciseBiz {
             cal = cal(exercises, month);
             return cal;
         }
+        if (month == null || month.equals("") || month.length() != 6) {
+            List<Exercise> exercises2 = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                Exercise e = new Exercise();
+                e.setType(i + "");
+                e.setCtime(0 + "");
+                exercises2.add(e);
+            }
+            for (Exercise exercise : exercises) {
+                int i = Integer.parseInt(exercise.getType());
+                Integer ctime = Integer.valueOf(exercise.getCtime());
+                Integer c = Integer.valueOf(exercises.get(i).getCtime());
+                exercises.get(i).setCtime(c + ctime + "");
+            }
+            return exercises2;
+        }
         return exercises;
     }
 
@@ -102,36 +118,6 @@ public class ExerciseBiz {
                 exercises.get(i).setCtime(c + ctime + "");
             }
         }
-//        for (int i = Integer.valueOf(month) * 100 + 1; i < Integer.valueOf(month) * 100 + 32; i++) {
-//            boolean flag = false;
-//            for (Exercise sugar1 : list) {
-//                if (sugar1.getTime().equals(i + "")) {
-//                    System.out.println(sugar1.getTime() + " " + sugar1.getType());
-//                    flag = true;
-//                    break;
-//                }
-//            }
-//            if (flag == false) {
-//                Exercise sugar = new Exercise();
-//                sugar.setCtime("0");
-//                sugar.setStrength("0");
-//                sugar.setType("0");
-//                sugar.setTime(i + "");
-//                list.add(sugar);
-//            }
-//            list.sort(new Comparator<Exercise>() {
-//                @Override
-//                public int compare(Exercise o1, Exercise o2) {
-//                    return Integer.valueOf(o1.getTime()).compareTo(Integer.valueOf(o2.getTime()));
-//                }
-//            });
-//            while (Integer.valueOf(list.get(0).getTime()) < Integer.valueOf(month) * 100) {
-//                list.remove(0);
-//            }
-//            while (Integer.valueOf(list.get(list.size() - 1).getTime()) > Integer.valueOf(month) * 100 + 32) {
-//                list.remove(list.size() - 1);
-//            }
-//        }
         return exercises;
     }
 }
