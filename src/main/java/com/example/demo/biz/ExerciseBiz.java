@@ -82,7 +82,7 @@ public class ExerciseBiz {
             for (Exercise exercise : exercises) {
                 int i = Integer.parseInt(exercise.getType());
                 Integer ctime = Integer.valueOf(exercise.getCtime());
-                Integer c = Integer.valueOf(exercises.get(i).getCtime());
+                Integer c = Integer.valueOf(exercises2.get(i).getCtime());
                 exercises2.get(i).setCtime(c + ctime + "");
             }
             return exercises2;
