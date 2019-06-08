@@ -83,6 +83,9 @@ public class WeightBiz {
                 }
             }
         }
+        if(!weights.get(weights.size()-1).getTime().equals(weights.get(weights.size()-2).getTime())){
+            list1.add(weights.get(weights.size()-1));
+        }
         return list1;
     }
 
