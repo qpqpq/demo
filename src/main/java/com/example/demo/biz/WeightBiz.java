@@ -73,7 +73,7 @@ public class WeightBiz {
         for (int i = 0; i < weights.size() - 1; ) {
             Weight weight = weights.get(i);
             for (int j = i + 1; j < weights.size(); j++) {
-                if (weight.getTime().equals(weights.get(j))) {
+                if (weight.getTime().equals(weights.get(j).getTime())) {
                     weight.setNum(String.valueOf(Double.valueOf(weight.getNum()) + Double.valueOf(weights.get(j).getNum())));
                 } else {
                     weight.setNum(String.valueOf(Double.valueOf(weight.getNum()) / (j - i)));
