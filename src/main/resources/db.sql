@@ -113,4 +113,4 @@ type varchar(8)
 create table bishe.state(
 phone varchar(11),
 state varchar(16)
-)
+);
